@@ -11,28 +11,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_product")
+public class Product implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L; 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
+	private String description;
+	private Double price;
+	private String urlImg;
 	
 	@Transient
-	private Set<Product> products = new HashSet<>();
-	
-	public Category() {
+	private Set<Category> categories = new HashSet<>();
+
+	public Product() {
 	}
 
-	public Category(Long id, String name) {
+	public Product(Long id, String name, String description, Double price, String urlImg) {
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.urlImg = urlImg;
 	}
 
 	public Long getId() {
@@ -50,11 +55,35 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Set<Product> getProducts() {
-		return products;
+
+	public String getDescription() {
+		return description;
 	}
-	
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getUrlImg() {
+		return urlImg;
+	}
+
+	public void setUrlImg(String urlImg) {
+		this.urlImg = urlImg;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -68,13 +97,8 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
 
-
-	
-	
-	
-	
 }
